@@ -1,0 +1,38 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model BlogWebsiteDotNet.ViewModels.LogInVM
+
+<div class="row justify-content-center">
+	<div class="col-md-7">
+		<div>
+			<form method="post" asp-action="LogIn">
+				<div>
+					<h2>Log In</h2>
+					<div class="form-group col-md-6">
+						<label for="name">UserName</label>
+						<input type="text" class="form-control" id="name" asp-for="UserName" placeholder="Enter your username">
+						<span asp-validation-for="UserName" class="text-danger"></span>
+						<label for="Password">Password</label>
+						<input type="password" class="form-control" asp-for="Password" id="Password" placeholder="Password">
+						<span asp-validation-for="Password" class="text-danger"></span>
+					</div>
+					<div class="form-group form-check">
+						<input type="checkbox" class="form-check-input" id="Check1" asp-for="rememberMe">
+						<label class="form-check-label" for="Check1">Remember me?</label>
+					</div>
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</div>
+				<a class="text-decoration-none" asp-action="Register">or Register</a>
+			</form>
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

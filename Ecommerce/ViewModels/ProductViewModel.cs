@@ -1,28 +1,19 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using Ecommerce.Models;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Ecommerce.Models
+namespace Ecommerce.ViewModels
 {
-	public class Product
+	public class ProductViewModel
 	{
-		[Key]
-		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int Id { get; set; }
 		public string ProductName { get; set; }
 		public DateTime CreatedDate { get; set; }
 		public int StockQuantity { get; set; }
 		public string? ProductImage { get; set; }
-
-		[ForeignKey(nameof(UserId))]
 		public string UserId { get; set; }
 		public User User { get; set; }
 
-
-
-		//public bool IsDeleted { get; set; }
-
 		public List<ProductCategory>? productCategories { get; set; }
-
 		public List<ProductCart>? productCarts { get; set; }
 
 	}
