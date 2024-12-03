@@ -7,7 +7,7 @@ namespace Ecommerce.Models
 	public class User: IdentityUser
 	{
 		[ForeignKey(nameof(CartId))]
-		public string CartId { get; set; }
+		public int CartId { get; set; }
 		public Cart Cart { get; set; }
 
 
