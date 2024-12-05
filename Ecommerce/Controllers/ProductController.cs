@@ -24,27 +24,27 @@ namespace Ecommerce.Controllers
         }
         public async Task<IActionResult> ProductDetails(int id)
         {
-            var productFind= _context.Products.FindAsync(id);
+            var productFind = _context.Products.FindAsync(id);
             var product = new Product
             {
                 Id = productFind.Result.Id,
-                ProductName= productFind.Result.ProductName,
-                ProductDescription= productFind.Result.ProductDescription,
-                ProductPrice= productFind.Result.ProductPrice,
-                Currency= productFind.Result.Currency,
-                StockQuantity= productFind.Result.StockQuantity,
-                UserId= productFind.Result.UserId,
+                ProductName = productFind.Result.ProductName,
+                ProductDescription = productFind.Result.ProductDescription,
+                ProductPrice = productFind.Result.ProductPrice,
+                Currency = productFind.Result.Currency,
+                StockQuantity = productFind.Result.StockQuantity,
+                UserId = productFind.Result.UserId,
             };
             return View(product);
         }
         [HttpPost]
         public async Task<IActionResult> AddToCart(int id)
         {
-            var product= _context.Products.Where(x=>x.Id == id).FirstOrDefault();
+            var product = _context.Products.Where(x => x.Id == id).FirstOrDefault();
             product.StockQuantity -= 1;
 
             var userId = _userManager.GetUserId(User);
-            var userCart= _context.Carts.Where(x=>x.UserId == userId).FirstOrDefault();
+            var userCart = _context.Carts.Where(x => x.UserId == userId).FirstOrDefault();
             var productCart = new ProductCart
             {
                 CartId = userCart.Id,
@@ -72,3 +72,4 @@ namespace Ecommerce.Controllers
         //        return 
 
     }
+}
