@@ -32,16 +32,6 @@
 			<input type="text" class="form-control" id="price" placeholder="Price in USD" asp-for="ProductPrice" aria-label="Amount (to the nearest dollar)" required>
 			<input type="text" value="USD" asp-for="Currency" hidden />
 		</div>
-		<br />
-		<div class="form-group">
-			<label for="description">Description</label>
-			<textarea class="form-control"
-					  id="description"
-					  rows="12"
-					  asp-for="ProductDescription"
-					  required></textarea>
-		</div>
-		<br />
 		<div class="form-group">
 			<label for="stock">StockQuantity</label>
 			<input type="text"
@@ -50,6 +40,28 @@
 				   placeholder="presisly"
 				   asp-for="StockQuantity"
 				   required />
+		</div>
+		<br />
+		<label for="Categories">Categories</label>
+		<div>
+			@foreach (var category in ViewBag.Categories)
+			{
+				<div class="form-check">
+					<input type="checkbox" class="form-check-input" name="SelectedCourseIds" value="@category.Id"
+					@if (Model != null)
+						@(Model.SelectedCategoriesIds.Contains(category.Id) ? "checked" : "")
+	 />
+					<label class="form-check-label" for="@category.Id">@category.CategoryName</label>
+				</div>
+			}
+		<br />
+		<div class="form-group">
+			<label for="description">Description</label>
+			<textarea class="form-control"
+					  id="description"
+					  rows="12"
+					  asp-for="ProductDescription"
+					  required></textarea>
 		</div>
 		<br />
 		<button type="submit" class="btn w-100" style="background: rgb(0, 166, 204); color: white;">

@@ -23,6 +23,8 @@ namespace Ecommerce.ViewModels
 		public string UserId { get; set; }
 		public User User { get; set; }
 
+		public List<int>? SelectedCategoriesIds { get; set; }
+
 		public List<ProductCategory>? productCategories { get; set; }
 		public List<ProductCart>? productCarts { get; set; }
 

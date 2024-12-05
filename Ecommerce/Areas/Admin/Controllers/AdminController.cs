@@ -5,6 +5,8 @@ using Ecommerce.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using NuGet.DependencyResolver;
 
 namespace Ecommerce.Areas.Admin.Controllers
 {
@@ -44,6 +46,7 @@ namespace Ecommerce.Areas.Admin.Controllers
 		[HttpGet]
 		public async Task<IActionResult> AddProduct()
 		{
+			ViewBag.Categories = await _context.Categories.ToListAsync();
 			return View("AddProductForm");
 		}
 		[HttpPost]
@@ -66,6 +69,25 @@ namespace Ecommerce.Areas.Admin.Controllers
 			};
 			await _context.Products.AddAsync(product);
 			await _context.SaveChangesAsync();
+
+			int generatedId = product.Id;
+			List<int> categoriesIds = new List<int>();
+			for (int i = 0; i < productVM.SelectedCategoriesIds.Count; i++)
+			{
+				categoriesIds.Add(productVM.SelectedCategoriesIds[i]);
+			}
+			for (int i = 0; i < categoriesIds.Count; i++)
+			{
+				var productCategory = new ProductCategory
+				{
+					CategoryId = categoriesIds[i],
+					ProductId = generatedId,
+				};
+				await _context.ProductCategories.AddAsync(productCategory);
+			}
+
+			await _context.SaveChangesAsync();
+
 			return RedirectToAction("Index");
 		}
 	}
