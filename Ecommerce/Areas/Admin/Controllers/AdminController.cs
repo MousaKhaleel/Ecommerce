@@ -23,7 +23,7 @@ namespace Ecommerce.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            return View("AddProductForm");//dashboard
+            return View("AddProductForm");//TODO: replace with dashboard
         }
         [HttpGet]
         public async Task<IActionResult> AddCategory()

@@ -48,6 +48,7 @@ namespace Ecommerce.Areas.Account.Controllers
         }
         public async Task<IActionResult> Register(RegisterViewModel viewModel)
         {
+            ModelState.Remove("Id");
             if (ModelState.IsValid)
             {
                 User user = new()

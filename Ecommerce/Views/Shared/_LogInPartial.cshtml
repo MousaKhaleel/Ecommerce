@@ -19,13 +19,13 @@
 				@User.Identity.Name
 			</a>
 			<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-				<li><a class="dropdown-item text-dark" asp-controller="Account" asp-action="Profile">Profile</a></li>
-				<li><a class="dropdown-item text-dark" asp-controller="Account" asp-action="LogOut">Log out</a></li>
+				<li><a class="dropdown-item text-dark" asp-area="Account" asp-controller="Account" asp-action="Profile">Profile</a></li>
+				<li><a class="dropdown-item text-dark" asp-area="Account" asp-controller="Account" asp-action="LogOut">Log out</a></li>
 			</ul>
 		</li>
 		@if (User.IsInRole("Admin"))
 		{
-			<li class="nav-item"><a class="nav-link text-light" asp-area="AdminDashboard" asp-controller="Admin" asp-action="Index">Admin Dashboard</a></li>
+			<li class="nav-item"><a class="nav-link text-dark" asp-area="Admin" asp-controller="Admin" asp-action="Index">Admin Dashboard</a></li>
 		}
 	</ul>
 }
@@ -33,10 +33,10 @@ else
 {
 	<ul class="navbar-nav flex-grow-1">
 		<li class="nav-item">
-			<a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="LogIn">LogIn</a>
+			<a class="nav-link text-dark" asp-area="Account" asp-controller="Account" asp-action="LogIn">LogIn</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+			<a class="nav-link text-dark" asp-area="Account" asp-controller="Account" asp-action="Register">Register</a>
 		</li>
 	</ul>
 }
