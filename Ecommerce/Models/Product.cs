@@ -22,9 +22,9 @@ namespace Ecommerce.Models
 		public int StockQuantity { get; set; }
 		public string? ProductImage { get; set; }
 
-		[ForeignKey(nameof(UserId))]
-		public string UserId { get; set; }
-		public User User { get; set; }
+		//[ForeignKey(nameof(UserId))]
+		//public string UserId { get; set; }
+		//public User User { get; set; }
 
 
 

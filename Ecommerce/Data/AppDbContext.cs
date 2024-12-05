@@ -35,6 +35,18 @@ namespace Ecommerce.Data
             modelBuilder.Entity<ProductCategory>()
     .HasKey(tc => new { tc.ProductId, tc.CategoryId });
 
+            modelBuilder.Entity<ProductCart>()
+.HasOne(pc => pc.Product)
+.WithMany(p => p.productCarts)
+.HasForeignKey(pc => pc.ProductId)
+.OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ProductCart>()
+                .HasOne(pc => pc.Cart)
+                .WithMany(c => c.productCarts)
+                .HasForeignKey(pc => pc.CartId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             modelBuilder.Entity<Product>()
                 .Property(e => e.CreatedDate)
                 .HasDefaultValueSql("GETDATE()");
