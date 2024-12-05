@@ -57,7 +57,7 @@ namespace Ecommerce.Areas.Admin.Controllers
                 ProductPrice = productVM.ProductPrice,
                 Currency = productVM.Currency,
                 StockQuantity = productVM.StockQuantity,
-                UserId=userId!,
+                //UserId=userId!,
             };
             return RedirectToAction("Index");
         }

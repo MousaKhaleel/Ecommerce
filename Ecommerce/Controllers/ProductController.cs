@@ -33,7 +33,7 @@ namespace Ecommerce.Controllers
                 ProductPrice = productFind.Result.ProductPrice,
                 Currency = productFind.Result.Currency,
                 StockQuantity = productFind.Result.StockQuantity,
-                UserId = productFind.Result.UserId,
+                //UserId = productFind.Result.UserId,
             };
             return View(product);
         }
