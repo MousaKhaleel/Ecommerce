@@ -35,7 +35,17 @@ namespace Ecommerce.Controllers
 			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
 		}
 
-        public IActionResult AboutUs()
+		public async Task<IActionResult> SearchProduct(string productName)
+		{
+			if (productName != null)
+			{
+				var searchResults = _context.Products.Where(x => x.ProductName.Contains(productName)).ToListAsync();
+				return View("Index", searchResults);
+			}
+			return View("Index", productName);
+		}
+
+		public IActionResult AboutUs()
         {
             return View();
         }

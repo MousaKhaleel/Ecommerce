@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce.Controllers
 {
-	//[Authorize]
+	[Authorize(Roles = "Customer")]
 	//TODO: fix
 	public class CartController : Controller
 	{
@@ -21,11 +21,11 @@ namespace Ecommerce.Controllers
 			_userManager = userManager;
 			_webHostEnvironment = webHostEnvironment;
 		}
-		public IActionResult Index()
+		public async Task<IActionResult> Index()
 		{
 			var userId = _userManager.GetUserId(User);
 			var cart= _context.Carts.Where(x=>x.UserId == userId).FirstOrDefault();
-			var ProductsInCartIds= _context.productCarts.Where(x=>x.CartId== cart.Id).ToList();
+			var ProductsInCartIds = _context.productCarts.Where(x=>x.CartId== cart.Id).ToList();
 			var productsInCart = new List<Product>();
 
 			foreach (var item in ProductsInCartIds)

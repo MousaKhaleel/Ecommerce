@@ -1,13 +1,12 @@
 ﻿using Ecommerce.Areas.Account.ViewModels;
 using Ecommerce.Data;
 using Ecommerce.Models;
-using Ecommerce.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce.Areas.Account.Controllers
 {
-	[Area("Account")]
+    [Area("Account")]
 	public class AccountController : Controller
     {
         private readonly SignInManager<User> _signInManager;

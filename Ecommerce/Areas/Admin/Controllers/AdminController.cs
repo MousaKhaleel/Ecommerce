@@ -11,7 +11,7 @@ using NuGet.DependencyResolver;
 namespace Ecommerce.Areas.Admin.Controllers
 {
 	[Area("Admin")]
-	//[Authorize(Roles = "Admin")]
+	[Authorize(Roles = "Admin")]
 	public class AdminController : Controller
 	{
 		private readonly SignInManager<User> _signInManager;
@@ -25,7 +25,7 @@ namespace Ecommerce.Areas.Admin.Controllers
 		}
 		public IActionResult Index()
 		{
-			return View("Index");//TODO: replace with dashboard
+			return View("Index");
 		}
 		[HttpGet]
 		public async Task<IActionResult> AddCategory()

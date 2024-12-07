@@ -2,6 +2,7 @@
 using Ecommerce.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.Elfie.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ecommerce.Controllers
@@ -65,13 +66,6 @@ namespace Ecommerce.Controllers
         //    RedirectToAction("Index", "Cart");
         //}XXXXXXXXXXXXXXXX
 
-        //public async Task<IActionResult> SearchProduct(string productName)
-        //{
-        //    if (productName != null)
-        //    {
-        //        var searchResults = _context.Products.Where(x => x.ProductName.Contains(productName)).ToListAsync();
-        //    }
-        //        return 
 
     }
 }
