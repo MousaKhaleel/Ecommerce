@@ -6,7 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce.Controllers
 {
-	[Authorize]
+	//[Authorize]
+	//TODO: fix
 	public class CartController : Controller
 	{
 		private readonly AppDbContext _context;
@@ -22,7 +23,18 @@ namespace Ecommerce.Controllers
 		}
 		public IActionResult Index()
 		{
-			return View();
+			var userId = _userManager.GetUserId(User);
+			var cart= _context.Carts.Where(x=>x.UserId == userId).FirstOrDefault();
+			var ProductsInCartIds= _context.productCarts.Where(x=>x.CartId== cart.Id).ToList();
+			var productsInCart = new List<Product>();
+
+			foreach (var item in ProductsInCartIds)
+			{
+				var product = _context.Products.FirstOrDefault(p => p.Id == item.ProductId);
+					productsInCart.Add(product);
+			}
+
+			return View(productsInCart);
 		}
 	}
 }

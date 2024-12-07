@@ -20,8 +20,8 @@ namespace Ecommerce.ViewModels
 		public DateTime CreatedDate { get; set; }
 		public int StockQuantity { get; set; }
 		public string? ProductImage { get; set; }
-		public string UserId { get; set; }
-		public User User { get; set; }
+		//public string UserId { get; set; }
+		//public User User { get; set; }
 
 		public List<int>? SelectedCategoriesIds { get; set; }
 

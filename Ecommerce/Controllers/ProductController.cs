@@ -17,27 +17,29 @@ namespace Ecommerce.Controllers
             this._userManager = _userManager;
             _context = dbContext;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index( int page = 1, int pageSize=15 )
         {
-            var allProducts = _context.Products.ToListAsync();
-            return View(allProducts);
+            //TODO: send the page number
+            var productCount = _context.Products.Count();
+            var numOfPages = (int)Math.Ceiling((double)productCount / pageSize );
+            var productsInPage = await _context.Products.Skip((page -1) * pageSize).Take(pageSize).ToListAsync();
+            return View(productsInPage);
         }
         public async Task<IActionResult> ProductDetails(int id)
         {
-            var productFind = _context.Products.FindAsync(id);
+            var productFind = await _context.Products.FindAsync(id);
             var product = new Product
             {
-                Id = productFind.Result.Id,
-                ProductName = productFind.Result.ProductName,
-                ProductDescription = productFind.Result.ProductDescription,
-                ProductPrice = productFind.Result.ProductPrice,
-                Currency = productFind.Result.Currency,
-                StockQuantity = productFind.Result.StockQuantity,
-                //UserId = productFind.Result.UserId,
+                Id = productFind.Id,
+                ProductName = productFind.ProductName,
+                ProductDescription = productFind.ProductDescription,
+                ProductPrice = productFind.ProductPrice,
+                Currency = productFind.Currency,
+                StockQuantity = productFind.StockQuantity,
+                //UserId = productFind.UserId,
             };
             return View(product);
         }
-        [HttpPost]
         public async Task<IActionResult> AddToCart(int id)
         {
             var product = _context.Products.Where(x => x.Id == id).FirstOrDefault();

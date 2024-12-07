@@ -47,7 +47,7 @@
 			@foreach (var category in ViewBag.Categories)
 			{
 				<div class="form-check">
-					<input type="checkbox" class="form-check-input" name="SelectedCourseIds" value="@category.Id"
+					<input type="checkbox" class="form-check-input" name="SelectedCategoriesIds" value="@category.Id"
 					@if (Model != null)
 						@(Model.SelectedCategoriesIds.Contains(category.Id) ? "checked" : "")
 	 />

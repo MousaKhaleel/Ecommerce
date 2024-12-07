@@ -69,6 +69,12 @@ namespace Ecommerce.Areas.Account.Controllers
                     if (roleResult.Succeeded)
                     {
                         await _signInManager.SignInAsync(user, false);
+                        var cart = new Cart
+                        {
+                            UserId = user.Id,
+                        };
+                        await _context.Carts.AddAsync(cart);
+                        await _context.SaveChangesAsync();
                         return RedirectToAction("Index", "Home");
                     }
                 }

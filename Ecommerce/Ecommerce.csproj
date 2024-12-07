@@ -26,7 +26,6 @@
   <ItemGroup>
     <Folder Include="Areas\Account\Models\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Views\Product\" />
   </ItemGroup>
 
 </Project>
