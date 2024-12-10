@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace Ecommerce.Controllers
 {
 	[Authorize(Roles = "Customer")]
-	//TODO: fix
 	public class CartController : Controller
 	{
 		private readonly AppDbContext _context;

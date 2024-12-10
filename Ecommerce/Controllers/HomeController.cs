@@ -39,7 +39,7 @@ namespace Ecommerce.Controllers
 		{
 			if (productName != null)
 			{
-				var searchResults = _context.Products.Where(x => x.ProductName.Contains(productName)).ToListAsync();
+				var searchResults = await _context.Products.Where(x => x.ProductName.Contains(productName)).ToListAsync();
 				return View("Index", searchResults);
 			}
 			return View("Index", productName);
