@@ -10,14 +10,19 @@
 <head>
 	<style>
 		.CTAbg {
-			background: url(https://images-na.ssl-images-amazon.com/images/G/01/AMAZON_FASHION/2021/CML_Holiday21/Fashion/LANDING_PAGES/headers/CML_HOL21_LP-HEADER_XCAT-M_DT._CB1634600139_.jpg);
+			background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://images-na.ssl-images-amazon.com/images/G/01/AMAZON_FASHION/2021/CML_Holiday21/Fashion/LANDING_PAGES/headers/CML_HOL21_LP-HEADER_XCAT-M_DT._CB1634600139_.jpg);
 			border-radius: 15px;
+			background-position: center;
+			background-size: cover;
+			background-repeat: no-repeat;
+			border-end-end-radius: 4px;
+			border-end-start-radius: 4px;
 		}
 
 		.c2a6 {
 			font-family: sans-serif;
-			
 			font-weight: 300;
+			color: white;
 		}
 
 			.c2a6 h1,
@@ -26,17 +31,17 @@
 			.c2a6 h4,
 			.c2a6 h5,
 			.c2a6 h6 {
-				
+				color: white;
 			}
 
 			.c2a6 .btn-danger {
-				background: #ff4d7e;
-				border: 1px solid #ff4d7e;
+				background: black;
+				border: 1px solid grey;
 			}
 
 			.c2a6 .subtitle {
-				
 				line-height: 24px;
+				color: white;
 			}
 
 			.c2a6 .btn-md {
@@ -62,6 +67,10 @@
 	</div>
 </div>
 
+<div>
+	<p>add catrgory cards</p>
+</div>
+
 <section class="py-5">
 	<div class="container-fluid">
 
@@ -74,42 +83,41 @@
 						<nav>
 							<div class="nav nav-tabs" id="nav-tab" role="tablist">
 								<a href="#" class="nav-link text-uppercase fs-6 active" id="nav-all-tab" data-bs-toggle="tab" data-bs-target="#nav-all">All</a>
-								<a href="#" class="nav-link text-uppercase fs-6" id="nav-fruits-tab" data-bs-toggle="tab" data-bs-target="#nav-fruits">Fruits & Veges</a>
-								<a href="#" class="nav-link text-uppercase fs-6" id="nav-juices-tab" data-bs-toggle="tab" data-bs-target="#nav-juices">Juices</a>
 							</div>
 						</nav>
 					</div>
-					@if(Model!=null){
-					@foreach (var product in Model)
+					@if (Model != null)
 					{
-						<div class="tab-content" id="nav-tabContent">
-							<div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
+						@foreach (var product in Model)
+						{
+							<div class="tab-content" id="nav-tabContent">
+								<div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
 
-								<div class="product-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+									<div class="product-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
 
-									<div class="col border">
-										<div class="product-item">
-											<a asp-action="ProductDetails" asp-controller="Product" asp-route-id="@product.Id">
-											<figure>
-													<img width="232px" src="https://images-na.ssl-images-amazon.com/images/G/01/AMAZON_FASHION/2021/CML_Holiday21/Fashion/LANDING_PAGES/headers/CML_HOL21_LP-HEADER_XCAT-M_DT._CB1634600139_.jpg" class="tab-image">
-											</figure>
-											<h3>@product.ProductName</h3>
-											<span class="qty">@product.StockQuantity left</span>
-											<span class="price">@product.ProductPrice @product.Currency</span>
-											</a>
-											<div class="d-flex align-items-center justify-content-between">
-												<a asp-action="AddToCart" asp-controller="Product" asp-route-id="@product.Id" class="btn quantity-right-plus btn btn-success btn-number w-100">
-													+
+										<div class="col border">
+											<div class="product-item">
+												<a asp-action="ProductDetails" asp-controller="Product" asp-route-id="@product.Id">
+													<figure>
+														<img width="232px" src="https://images-na.ssl-images-amazon.com/images/G/01/AMAZON_FASHION/2021/CML_Holiday21/Fashion/LANDING_PAGES/headers/CML_HOL21_LP-HEADER_XCAT-M_DT._CB1634600139_.jpg" class="tab-image">
+													</figure>
+													<h3>@product.ProductName</h3>
+													<span class="qty">@product.StockQuantity left</span>
+													<span class="price">@product.ProductPrice @product.Currency</span>
 												</a>
+												<div class="d-flex align-items-center justify-content-between">
+													<a asp-action="AddToCart" asp-controller="Product" asp-route-id="@product.Id" class="btn quantity-right-plus btn btn-success btn-number w-100">
+														+
+													</a>
 
+												</div>
 											</div>
 										</div>
 									</div>
-								</div>
 
+								</div>
 							</div>
-						</div>
-					}
+						}
 					}
 				</div>
 </section>
