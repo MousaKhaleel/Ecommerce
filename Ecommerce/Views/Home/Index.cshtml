@@ -73,10 +73,8 @@
 
 <section class="py-5">
 	<div class="container-fluid">
-
 		<div class="row">
 			<div class="col-md-12">
-
 				<div class="bootstrap-tabs product-tabs">
 					<div class="tabs-header d-flex justify-content-between border-bottom my-5">
 						<h3>Trending Products</h3>
@@ -86,18 +84,17 @@
 							</div>
 						</nav>
 					</div>
+
 					@if (Model != null)
 					{
-						@foreach (var product in Model)
-						{
-							<div class="tab-content" id="nav-tabContent">
-								<div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
-
-									<div class="product-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
-
-										<div class="col border">
+						<div class="tab-content" id="nav-tabContent">
+							<div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
+								<div class="product-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+									@foreach (var product in Model)
+									{
+										<div class="col border" style="margin:2px; padding:1px">
 											<div class="product-item">
-												<a asp-action="ProductDetails" asp-controller="Product" asp-route-id="@product.Id">
+												<a asp-action="ProductDetails" asp-controller="Product" asp-route-d="@product.Id">
 													<figure>
 														<img width="232px" src="https://images-na.ssl-images-amazon.com/images/G/01/AMAZON_FASHION/2021/CML_Holiday21/Fashion/LANDING_PAGES/headers/CML_HOL21_LP-HEADER_XCAT-M_DT._CB1634600139_.jpg" class="tab-image">
 													</figure>
@@ -109,18 +106,20 @@
 													<a asp-action="AddToCart" asp-controller="Product" asp-route-id="@product.Id" class="btn quantity-right-plus btn btn-success btn-number w-100">
 														+
 													</a>
-
 												</div>
 											</div>
 										</div>
-									</div>
-
+									}
 								</div>
 							</div>
-						}
+						</div>
 					}
 				</div>
+			</div>
+		</div>
+	</div>
 </section>
+
 
 
 @* <div class="tab-content" id="nav-tabContent">

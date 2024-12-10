@@ -26,8 +26,9 @@ namespace Ecommerce.Controllers
 			var productsInPage = await _context.Products.Where(x=>x.StockQuantity>0).Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
 			return View(productsInPage);
 		}
-		public async Task<IActionResult> ProductDetails(int id)
+		public async Task<IActionResult> ProductDetails(string d)
 		{
+			var id = int.Parse(d); //TODO: fix
 			var productFind = await _context.Products.FindAsync(id);
 			var product = new Product
 			{
