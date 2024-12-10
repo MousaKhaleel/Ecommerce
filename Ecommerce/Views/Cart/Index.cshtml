@@ -7,6 +7,19 @@
 @model List<Ecommerce.Models.Product>
 
 
+<head>
+	<style>
+		.card a {
+			text-decoration: none;
+			color: black
+		}
+
+		.card {
+			margin: 2px;
+			padding: 1px;
+		}
+	</style>
+</head>
 <section class="py-5">
 	<div class="container-fluid">
 
@@ -19,8 +32,6 @@
 						<nav>
 							<div class="nav nav-tabs" id="nav-tab" role="tablist">
 								<a href="#" class="nav-link text-uppercase fs-6 active" id="nav-all-tab" data-bs-toggle="tab" data-bs-target="#nav-all">All</a>
-								<a href="#" class="nav-link text-uppercase fs-6" id="nav-fruits-tab" data-bs-toggle="tab" data-bs-target="#nav-fruits">Fruits & Veges</a>
-								<a href="#" class="nav-link text-uppercase fs-6" id="nav-juices-tab" data-bs-toggle="tab" data-bs-target="#nav-juices">Juices</a>
 							</div>
 						</nav>
 					</div>
@@ -31,14 +42,16 @@
 
 								<div class="product-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
 
-									<div class="col border">
+									<div class="col border card">
 										<div class="product-item">
-											<figure>
+											<a asp-action="ProductDetails" asp-controller="Product" asp-route-d="@product.Id">
+												<figure>
 													<img width="232px" src="https://images-na.ssl-images-amazon.com/images/G/01/AMAZON_FASHION/2021/CML_Holiday21/Fashion/LANDING_PAGES/headers/CML_HOL21_LP-HEADER_XCAT-M_DT._CB1634600139_.jpg" class="tab-image">
-											</figure>
-											<h3>@product.ProductName</h3>
-											<span class="qty">@product.StockQuantity left</span>
-											<span class="price">@product.ProductPrice @product.Currency</span>
+												</figure>
+												<h3>@product.ProductName</h3>
+												<span class="qty">@product.StockQuantity left</span>
+												<span class="price">@product.ProductPrice @product.Currency</span>
+											</a>
 											<div class="d-flex align-items-center justify-content-between">
 												<a asp-action="RemoveFromCart" asp-controller="Product" asp-route-id="@product.Id" class="btn quantity-right-plus btn btn-danger btn-number w-100">
 													-

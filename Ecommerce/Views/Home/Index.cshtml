@@ -10,7 +10,7 @@
 <head>
 	<style>
 		.CTAbg {
-			background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://images-na.ssl-images-amazon.com/images/G/01/AMAZON_FASHION/2021/CML_Holiday21/Fashion/LANDING_PAGES/headers/CML_HOL21_LP-HEADER_XCAT-M_DT._CB1634600139_.jpg);
+			background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../Images/pexels-olly-3769747.jpg');
 			border-radius: 15px;
 			background-position: center;
 			background-size: cover;
@@ -47,6 +47,14 @@
 			.c2a6 .btn-md {
 				padding: 15px 45px;
 				font-size: 16px;
+			}
+			.card a{
+				text-decoration:none;
+				color:black
+			}
+			.card{
+			margin:2px;
+			padding:1px;
 			}
 	</style>
 </head>
@@ -92,7 +100,7 @@
 								<div class="product-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
 									@foreach (var product in Model)
 									{
-										<div class="col border" style="margin:2px; padding:1px">
+										<div class="col border card">
 											<div class="product-item">
 												<a asp-action="ProductDetails" asp-controller="Product" asp-route-d="@product.Id">
 													<figure>
