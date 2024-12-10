@@ -19,7 +19,7 @@ namespace Ecommerce.Controllers
 
 		public async Task<IActionResult> Index()
 		{
-			var Products = await _context.Products.ToListAsync();
+			var Products = await _context.Products.Where(x => x.StockQuantity > 0).ToListAsync();
 			//TODO: move
 			return View(Products);
 		}

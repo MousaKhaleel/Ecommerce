@@ -11,5 +11,7 @@ namespace Ecommerce.Models
 		[ForeignKey(nameof(CartId))]
 		public int CartId { get; set; }
 		public Cart Cart { get; set; }
+
+		public int ProductQuantityInCart { get; set; }
 	}
 }
