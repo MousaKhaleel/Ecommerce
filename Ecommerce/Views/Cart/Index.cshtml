@@ -1,69 +1,74 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@{
-}
-
 @model List<Ecommerce.Models.Product>
 
-
 <head>
-	<style>
-		.card a {
-			text-decoration: none;
-			color: black
-		}
+    <style>
+        .card a {
+               text-decoration: none;
+               color: black;
+        }
 
-		.card {
-			margin: 2px;
-			padding: 1px;
-		}
-	</style>
+        .card {
+               margin: 0.5rem;
+           }
+
+         .card img {
+              object-fit: cover;
+              max-height: 200px;
+          }
+    </style>
 </head>
+
 <section class="py-5">
-	<div class="container-fluid">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="bootstrap-tabs product-tabs">
+                    <!-- Tabs Header -->
+                    <div class="tabs-header d-flex justify-content-between align-items-center border-bottom mb-4">
+                        <h3 class="mb-0 font-weight-bold">Trending Products</h3>
+                        <nav>
+                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                <a href="#" class="nav-link text-uppercase fs-6 active" id="nav-all-tab" data-bs-toggle="tab" data-bs-target="#nav-all">All</a>
+                            </div>
+                        </nav>
+                    </div>
 
-		<div class="row">
-			<div class="col-md-12">
-
-				<div class="bootstrap-tabs product-tabs">
-					<div class="tabs-header d-flex justify-content-between border-bottom my-5">
-						<h3>Trending Products</h3>
-						<nav>
-							<div class="nav nav-tabs" id="nav-tab" role="tablist">
-								<a href="#" class="nav-link text-uppercase fs-6 active" id="nav-all-tab" data-bs-toggle="tab" data-bs-target="#nav-all">All</a>
-							</div>
-						</nav>
-					</div>
-					@foreach (var product in Model)
-					{
-						<div class="tab-content" id="nav-tabContent">
-							<div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
-
-								<div class="product-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
-
-									<div class="col border card">
-										<div class="product-item">
-											<a asp-action="ProductDetails" asp-controller="Product" asp-route-d="@product.Id">
-												<figure>
-													<img width="232px" src="https://images-na.ssl-images-amazon.com/images/G/01/AMAZON_FASHION/2021/CML_Holiday21/Fashion/LANDING_PAGES/headers/CML_HOL21_LP-HEADER_XCAT-M_DT._CB1634600139_.jpg" class="tab-image">
-												</figure>
-												<h3>@product.ProductName</h3>
-												<span class="qty">@product.StockQuantity left</span>
-												<span class="price">@product.ProductPrice @product.Currency</span>
-											</a>
-											<div class="d-flex align-items-center justify-content-between">
-												<a asp-action="RemoveFromCart" asp-controller="Product" asp-route-id="@product.Id" class="btn quantity-right-plus btn btn-danger btn-number w-100">
-													-
-												</a>
-
-											</div>
-										</div>
-									</div>
-								</div>
-
-							</div>
-						</div>
-					}
-				</div>
+                    <!-- Products Grid -->
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
+                            <div class="product-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">
+                                @foreach (var product in Model)
+                                {
+                                    <div class="col">
+                                        <div class="card h-100 border-0 shadow">
+                                            <a asp-action="ProductDetails" asp-controller="Product" asp-route-d="@product.Id" class="text-decoration-none">
+                                                <div class="card-body text-center">
+                                                    <figure>
+                                                        <img src="https://images-na.ssl-images-amazon.com/images/G/01/AMAZON_FASHION/2021/CML_Holiday21/Fashion/LANDING_PAGES/headers/CML_HOL21_LP-HEADER_XCAT-M_DT._CB1634600139_.jpg"
+                                                             class="img-fluid tab-image rounded mb-3" alt="@product.ProductName">
+                                                    </figure>
+                                                    <h3 class="h6 text-dark mb-2">@product.ProductName</h3>
+                                                    <p class="text-muted small mb-1">@product.StockQuantity left</p>
+                                                    <span class="price fw-bold text-success">@product.ProductPrice @product.Currency</span>
+                                                </div>
+                                            </a>
+                                            <div class="card-footer bg-transparent border-0 text-center">
+                                                <a asp-action="RemoveFromCart" asp-controller="Product" asp-route-id="@product.Id"
+                                                   class="btn btn-danger btn-sm w-100">
+                                                    Remove from Cart
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>

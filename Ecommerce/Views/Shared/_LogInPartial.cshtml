@@ -1,48 +1,45 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using System.Security.Claims
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
 
 @inject SignInManager<User> _signInManager
 
-
-
-@if (_signInManager.IsSignedIn(User))
-{
-	<ul class="navbar-nav flex-grow-1">
-		<li class="nav-item"></li>
-		<li class="nav-item dropdown">
-			<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-				@User.Identity.Name
-			</a>
-			<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-				<li><a class="dropdown-item text-dark" asp-area="Account" asp-controller="Account" asp-action="Profile">Profile</a></li>
-				<li><a class="dropdown-item text-dark" asp-area="Account" asp-controller="Account" asp-action="LogOut">Log out</a></li>
-			</ul>
-		</li>
-		@if (User.IsInRole("Admin"))
-		{
-			<li class="nav-item"><a class="nav-link text-dark" asp-area="Admin" asp-controller="Admin" asp-action="Index">Admin Dashboard</a></li>
-		}
-		@if (User.IsInRole("Customer"))
-		{
-			<li class="nav-item">
-				<a class="nav-link text-dark" asp-controller="Cart" asp-action="Index">Cart</a>
-			</li>
-		}
-	</ul>
-}
-else
-{
-	<ul class="navbar-nav flex-grow-1">
-		<li class="nav-item">
-			<a class="nav-link text-dark" asp-area="Account" asp-controller="Account" asp-action="LogIn">LogIn</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link text-dark" asp-area="Account" asp-controller="Account" asp-action="Register">Register</a>
-		</li>
-	</ul>
-}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        @if (_signInManager.IsSignedIn(User))
+        {
+            <ul class="navbar-nav flex-grow-1">
+                <li class="nav-item"></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        @User.Identity.Name
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item text-light" asp-area="Account" asp-controller="Account" asp-action="Profile">Profile</a></li>
+                        <li><a class="dropdown-item text-light" asp-area="Account" asp-controller="Account" asp-action="LogOut">Log out</a></li>
+                    </ul>
+                </li>
+                @if (User.IsInRole("Admin"))
+                {
+                    <li class="nav-item"><a class="nav-link text-light" asp-area="Admin" asp-controller="Admin" asp-action="Index">Admin Dashboard</a></li>
+                }
+                @if (User.IsInRole("Customer"))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link text-light" asp-controller="Cart" asp-action="Index">Cart</a>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <ul class="navbar-nav flex-grow-1">
+                <li class="nav-item">
+                    <a class="nav-link text-light" asp-area="Account" asp-controller="Account" asp-action="LogIn">LogIn</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" asp-area="Account" asp-controller="Account" asp-action="Register">Register</a>
+                </li>
+            </ul>
+        }
+    </div>
+</nav>
