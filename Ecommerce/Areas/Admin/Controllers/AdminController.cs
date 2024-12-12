@@ -52,11 +52,16 @@ namespace Ecommerce.Areas.Admin.Controllers
 		[HttpPost]
 		public async Task<IActionResult> AddProduct(ProductViewModel productVM, IFormFile ProductImageFile)
 		{
-			//if (ProductImageFile != null && ProductImageFile.Length > 0)
-			//{
-			//	string imageUrl = await uploadi;
-			//}
-			var userId = _userManager.GetUserId(User);
+            byte[] productImageBytes = null;
+            if (ProductImageFile != null && ProductImageFile.Length > 0)
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    await ProductImageFile.CopyToAsync(memoryStream);
+                    productImageBytes = memoryStream.ToArray();
+                }
+            }
+            var userId = _userManager.GetUserId(User);
 			var product = new Product
 			{
 				ProductName = productVM.ProductName,
@@ -64,9 +69,9 @@ namespace Ecommerce.Areas.Admin.Controllers
 				ProductPrice = productVM.ProductPrice,
 				Currency = productVM.Currency,
 				StockQuantity = productVM.StockQuantity,
-				//ProductImage=
-				//UserId=userId!,
-			};
+				ProductImage = productImageBytes,
+                //UserId=userId!,
+            };
 			await _context.Products.AddAsync(product);
 			await _context.SaveChangesAsync();
 

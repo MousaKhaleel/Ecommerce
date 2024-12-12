@@ -76,7 +76,8 @@ namespace Ecommerce.Migrations
                     Currency = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
                     StockQuantity = table.Column<int>(type: "int", nullable: false),
-                    ProductImage = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    ProductImage = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    ProductImageBase64 = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -237,7 +238,8 @@ namespace Ecommerce.Migrations
                 columns: table => new
                 {
                     ProductId = table.Column<int>(type: "int", nullable: false),
-                    CartId = table.Column<int>(type: "int", nullable: false)
+                    CartId = table.Column<int>(type: "int", nullable: false),
+                    ProductQuantityInCart = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

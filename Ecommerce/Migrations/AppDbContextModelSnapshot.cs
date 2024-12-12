@@ -80,7 +80,10 @@ namespace Ecommerce.Migrations
                     b.Property<string>("ProductDescription")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ProductImage")
+                    b.Property<byte[]>("ProductImage")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("ProductImageBase64")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProductName")

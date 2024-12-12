@@ -20,17 +20,19 @@ namespace Ecommerce.Models
 		public string Currency { get; set; }
 		public DateTime CreatedDate { get; set; }
 		public int StockQuantity { get; set; }
-		public string? ProductImage { get; set; }
+		public byte[]? ProductImage { get; set; }
 
-		//[ForeignKey(nameof(UserId))]
-		//public string UserId { get; set; }
-		//public User User { get; set; }
+        public string? ProductImageBase64 { get; set; }
+
+        //[ForeignKey(nameof(UserId))]
+        //public string UserId { get; set; }
+        //public User User { get; set; }
 
 
 
-		//public bool IsDeleted { get; set; }
+        //public bool IsDeleted { get; set; }
 
-		public List<ProductCategory>? productCategories { get; set; }
+        public List<ProductCategory>? productCategories { get; set; }
 
 		public List<ProductCart>? productCarts { get; set; }
 
