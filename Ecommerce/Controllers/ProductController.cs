@@ -94,6 +94,13 @@ namespace Ecommerce.Controllers
 			return RedirectToAction("Index", "Cart");
 		}
 
+		public async Task<IActionResult> ProductByCategory(int id)
+		{
+			var products = await _context.ProductCategories.Where(pc => pc.CategoryId == id).Select(pc => pc.Product).ToListAsync();
+			ViewBag.Categories = await _context.Categories.ToListAsync();
+			return View("Index", products);
+		}
+
 		//[HttpPost]
 		//public async Task<IActionResult> BuyProduct(int id)
 		//{

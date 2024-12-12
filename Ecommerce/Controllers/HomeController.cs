@@ -19,6 +19,7 @@ namespace Ecommerce.Controllers
 
 		public async Task<IActionResult> Index()
 		{
+			ViewBag.Categories= await _context.Categories.ToListAsync();
 			var Products = await _context.Products.Where(x => x.StockQuantity > 0).ToListAsync();
 			//TODO: move
 			return View(Products);
