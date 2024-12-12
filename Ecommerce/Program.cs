@@ -42,15 +42,22 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseAuthentication();
+
 
 
 app.MapControllerRoute(
-	name: "areas",
-	pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}");
+	name: "areas_admin",
+	pattern: "{area:exists}/{action=Index}/{id?}",
+	defaults: new { controller = "Admin" });
+
+
+app.MapControllerRoute(
+	name: "areas_account",
+	pattern: "{area:exists}/{action=Index}/{id?}",
+	defaults: new { controller = "Account" });
 
 app.MapControllerRoute(
 	name: "default",

@@ -1,0 +1,43 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+	// string requestFor;
+	// if (User.IsInRole("Commenter"))
+	// {
+	// 	requestFor = "Author";
+	// }
+	// else
+	// 	requestFor = "Admin";
+}
+
+@model Ecommerce.Areas.Account.ViewModels.UserViewModel
+
+<div class="row justify-content-center">
+	<div class="col-md-7">
+		<div>
+			<form method="post" asp-action="EditProfile">
+				<div>
+					<h2>Edit Profile</h2>
+					<div class="form-group col-md-6">
+						<label for="name">UserName</label>
+						<input type="text" class="form-control" id="name" readonly asp-for="UserName">
+
+						<label for="Email">Email</label>
+						<input type="email" class="form-control" id="Email" asp-for="Email" aria-describedby="emailHelp" placeholder="Enter email">
+
+						<label for="phone">Phone Number</label>
+						<input type="tel" class="form-control" id="phone" asp-for="PhoneNumber" placeholder="Enter your phone">
+
+						<label for="Password">Reset Password</label>
+						<input type="password" class="form-control" asp-for="Password" id="Password" placeholder="Enter new Password">
+					</div>
+					<br />
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

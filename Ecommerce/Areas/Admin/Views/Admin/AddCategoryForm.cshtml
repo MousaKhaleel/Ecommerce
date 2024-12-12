@@ -1,0 +1,25 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model Ecommerce.Areas.Admin.ViewModels.CategoryViewModel
+
+<div class="writeContainer">
+    <form asp-action="AddCategory" method="POST">
+	<h1>Add a Category</h1>
+                <div class="form-group">
+        <label for="title">Name</label>
+        <input type="text"
+               class="form-control"
+               id="title"
+               placeholder=""
+               asp-for="CategoryName"
+               required />
+    </div>
+            <br />
+    <button type="submit" class="btn w-100" style="background: rgb(0, 166, 204); color: white;">
+        Add
+    </button>
+    </form>
+</div>
