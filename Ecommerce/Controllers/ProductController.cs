@@ -24,6 +24,12 @@ namespace Ecommerce.Controllers
 			var productCount = _context.Products.Count();
 			var numOfPages = (int)Math.Ceiling((double)productCount / pageSize);
 			var productsInPage = await _context.Products.Where(x=>x.StockQuantity>0).Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+			foreach (var product in productsInPage)
+			{
+				product.ProductImageBase64 = product.ProductImage != null
+					? Convert.ToBase64String(product.ProductImage)
+					: string.Empty;
+			}
 			return View(productsInPage);
 		}
 		public async Task<IActionResult> ProductDetails(string d)
@@ -38,7 +44,10 @@ namespace Ecommerce.Controllers
 				ProductPrice = productFind.ProductPrice,
 				Currency = productFind.Currency,
 				StockQuantity = productFind.StockQuantity,
-				//UserId = productFind.UserId,
+
+				ProductImageBase64= productFind.ProductImage != null
+					? Convert.ToBase64String(productFind.ProductImage)
+					: string.Empty,
 			};
 			return View(product);
 		}
@@ -100,7 +109,13 @@ namespace Ecommerce.Controllers
             if (productName != null)
             {
                 var searchResults = await _context.Products.Where(x => x.ProductName.Contains(productName)).ToListAsync();
-                ViewBag.Categories = await _context.Categories.ToListAsync();
+				foreach (var product in searchResults)
+				{
+					product.ProductImageBase64 = product.ProductImage != null
+						? Convert.ToBase64String(product.ProductImage)
+						: string.Empty;
+				}
+				ViewBag.Categories = await _context.Categories.ToListAsync();
                 return View("Index", searchResults);
             }
             return View("Index", productName);
@@ -109,6 +124,12 @@ namespace Ecommerce.Controllers
         public async Task<IActionResult> ProductByCategory(int id)
 		{
 			var products = await _context.ProductCategories.Where(pc => pc.CategoryId == id).Select(pc => pc.Product).ToListAsync();
+			foreach (var product in products)
+			{
+				product.ProductImageBase64 = product.ProductImage != null
+					? Convert.ToBase64String(product.ProductImage)
+					: string.Empty;
+			}
 			ViewBag.Categories = await _context.Categories.ToListAsync();
 			return View("Index", products);
 		}

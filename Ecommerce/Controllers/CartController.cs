@@ -30,7 +30,10 @@ namespace Ecommerce.Controllers
 			foreach (var item in ProductsInCartIds)
 			{
 				var product = _context.Products.FirstOrDefault(p => p.Id == item.ProductId);
-					productsInCart.Add(product);
+					product.ProductImageBase64 = product.ProductImage != null
+						? Convert.ToBase64String(product.ProductImage)
+						: string.Empty;
+				productsInCart.Add(product);
 			}
 
 			return View(productsInCart);
