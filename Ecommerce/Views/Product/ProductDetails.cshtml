@@ -6,5 +6,11 @@
 
 @model Ecommerce.Models.Product
 
-<p>name: @Model.ProductName</p>
+<p>Name: @Model.ProductName</p>
+<img src="data:image/png;base64,@Model.ProductImageBase64" class="img-fluid tab-image rounded mb-3" alt="@Model.ProductName" />
+<p>Price: @Model.ProductPrice @Model.Currency</p>
 <p>Discription: @Model.ProductDescription</p>
+<a asp-action="AddToCart" asp-controller="Product" asp-route-id="@Model.Id"
+   class="btn btn-success btn-sm w-100">
+	Add to Cart
+</a>
