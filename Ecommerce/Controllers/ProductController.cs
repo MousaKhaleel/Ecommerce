@@ -1,7 +1,9 @@
 ﻿using Ecommerce.Data;
 using Ecommerce.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.CodeAnalysis.Elfie.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 
@@ -51,13 +53,14 @@ namespace Ecommerce.Controllers
 			};
 			return View(product);
 		}
+		[Authorize]
 		public async Task<IActionResult> AddToCart(int id)
 		{
 			var product = _context.Products.Where(x => x.Id == id).FirstOrDefault();
 
 			var userId = _userManager.GetUserId(User);
 			var userCart = _context.Carts.Where(x => x.UserId == userId).FirstOrDefault();
-			var productCart = await _context.productCarts.Where(x => x.CartId == userCart.Id).Include(y => y.Product).FirstOrDefaultAsync();
+			var productCart = await _context.productCarts.Where(x => x.CartId == userCart.Id).Where(y => y.ProductId == id).Include(y => y.Product).FirstOrDefaultAsync();
 			if (productCart == null)
 			{
 				productCart = new ProductCart
@@ -78,7 +81,10 @@ namespace Ecommerce.Controllers
 
 				await _context.SaveChangesAsync();
 
-			return RedirectToAction("Index", "Cart");
+			var hubContext = (IHubContext<ProductHub>)HttpContext.RequestServices.GetService(typeof(IHubContext<ProductHub>));
+			await hubContext.Clients.All.SendAsync("ReceiveStockUpdate", product.Id, product.StockQuantity);
+
+			return RedirectToAction("Index", "Home");
 		}
 
 		public async Task<IActionResult> RemoveFromCart(int id)

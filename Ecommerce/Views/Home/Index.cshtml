@@ -154,6 +154,7 @@
 															<img src="data:image/png;base64,@product.ProductImageBase64" class="img-fluid tab-image rounded mb-3" alt="@product.ProductName"/>
 														</figure>
 														<h3 class="h6 text-dark mb-2">@product.ProductName</h3>
+														<div id="product-stock-@product.Id">Stock: @product.StockQuantity</div>
 														<p class="text-muted small mb-1">@product.StockQuantity left</p>
 														<span class="price fw-bold text-success">@product.ProductPrice @product.Currency</span>
 													</div>
@@ -176,5 +177,22 @@
 		</div>
 	</div>
 </section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+<script>
+	const connection = new signalR.HubConnectionBuilder()
+		.withUrl("/productHub")
+		.build();
+
+	connection.on("ReceiveStockUpdate", (productId, newQuantity) => {
+		const productElement = document.getElementById(`product-stock-${productId}`);
+		if (productElement) {
+			productElement.textContent = `Stock: ${newQuantity}`;
+		}
+	});
+
+	connection.start()
+		.catch(err => console.error(err.toString()));
+</script>
 
 

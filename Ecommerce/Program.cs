@@ -1,3 +1,4 @@
+using Ecommerce;
 using Ecommerce.Data;
 using Ecommerce.Models;
 using Microsoft.AspNetCore.Identity;
@@ -28,6 +29,8 @@ builder.Services.AddIdentity<User, IdentityRole>(
 
 builder.Services.AddAuthorization();
 
+builder.Services.AddSignalR();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -46,6 +49,12 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 
+
+app.UseEndpoints(endpoints =>
+{
+	endpoints.MapControllers();
+	endpoints.MapHub<ProductHub>("/productHub");
+});
 
 
 app.MapControllerRoute(
