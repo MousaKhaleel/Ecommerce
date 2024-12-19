@@ -86,7 +86,7 @@ namespace Ecommerce.Controllers
 
 			return RedirectToAction("Index", "Home");
 		}
-
+		//TODO: add signalr
 		public async Task<IActionResult> RemoveFromCart(int id)
 		{
 			var product = _context.Products.Where(x => x.Id == id).FirstOrDefault();
