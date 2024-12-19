@@ -3,22 +3,71 @@
 *@
 @model List<Ecommerce.Models.Product>
 
+
 <head>
-    <style>
-        .card a {
-               text-decoration: none;
-               color: black;
-        }
+	<style>
+		.CTAbg {
+			background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../Images/pexels-olly-3769747.jpg') center/cover no-repeat;
+			border-radius: 15px;
+			border-end-end-radius: 4px;
+			border-end-start-radius: 4px;
+		}
 
-        .card {
-               margin: 0.5rem;
-           }
+		.c2a6 {
+			font-family: sans-serif;
+			font-weight: 300;
+			color: white;
+		}
 
-         .card img {
-              object-fit: cover;
-              max-height: 200px;
-          }
-    </style>
+			.c2a6 h1,
+			.c2a6 h2,
+			.c2a6 h3,
+			.c2a6 h4,
+			.c2a6 h5,
+			.c2a6 h6 {
+				color: white;
+			}
+
+			.c2a6 .subtitle {
+				line-height: 1.5;
+				color: white;
+			}
+
+			.c2a6 .btn-danger {
+				background-color: black;
+				border: 1px solid grey;
+				color: white;
+			}
+
+			.c2a6 .btn-md {
+				padding: 15px 45px;
+				font-size: 16px;
+			}
+
+		.card {
+			margin: 2px;
+			padding: 1px;
+			border: none;
+			border-radius: 8px;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+			overflow: hidden;
+			transition: transform 0.3s ease; /* Add transition for smooth zoom */
+		}
+
+			.card:hover {
+				transform: scale(1.05); /* Zoom in on hover */
+			}
+
+			.card a {
+				text-decoration: none;
+				color: black;
+				transition: color 0.3s ease;
+			}
+
+				.card a:hover {
+					color: white;
+				}
+	</style>
 </head>
 
 <section class="py-5">
@@ -47,8 +96,7 @@
                                             <a asp-action="ProductDetails" asp-controller="Product" asp-route-d="@product.Id" class="text-decoration-none">
                                                 <div class="card-body text-center">
                                                     <figure>
-                                                        <img src="https://images-na.ssl-images-amazon.com/images/G/01/AMAZON_FASHION/2021/CML_Holiday21/Fashion/LANDING_PAGES/headers/CML_HOL21_LP-HEADER_XCAT-M_DT._CB1634600139_.jpg"
-                                                             class="img-fluid tab-image rounded mb-3" alt="@product.ProductName">
+														<img src="data:image/png;base64,@product.ProductImageBase64" class="img-fluid tab-image rounded mb-3" alt="@product.ProductName" class="img-fluid tab-image rounded mb-3" alt="@product.ProductName"/>
                                                     </figure>
                                                     <h3 class="h6 text-dark mb-2">@product.ProductName</h3>
                                                     <p class="text-muted small mb-1">@product.StockQuantity left</p>
@@ -66,6 +114,7 @@
                                 }
                             </div>
                         </div>
+						<h4>Total Price: @ViewBag.TotalPrice</h4>
                     </div>
                 </div>
             </div>

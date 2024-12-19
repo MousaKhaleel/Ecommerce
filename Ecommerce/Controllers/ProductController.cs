@@ -1,7 +1,9 @@
 ﻿using Ecommerce.Data;
 using Ecommerce.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.CodeAnalysis.Elfie.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,6 +26,12 @@ namespace Ecommerce.Controllers
 			var productCount = _context.Products.Count();
 			var numOfPages = (int)Math.Ceiling((double)productCount / pageSize);
 			var productsInPage = await _context.Products.Where(x=>x.StockQuantity>0).Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+			foreach (var product in productsInPage)
+			{
+				product.ProductImageBase64 = product.ProductImage != null
+					? Convert.ToBase64String(product.ProductImage)
+					: string.Empty;
+			}
 			return View(productsInPage);
 		}
 		public async Task<IActionResult> ProductDetails(string d)
@@ -38,17 +46,21 @@ namespace Ecommerce.Controllers
 				ProductPrice = productFind.ProductPrice,
 				Currency = productFind.Currency,
 				StockQuantity = productFind.StockQuantity,
-				//UserId = productFind.UserId,
+
+				ProductImageBase64= productFind.ProductImage != null
+					? Convert.ToBase64String(productFind.ProductImage)
+					: string.Empty,
 			};
 			return View(product);
 		}
+		[Authorize]
 		public async Task<IActionResult> AddToCart(int id)
 		{
 			var product = _context.Products.Where(x => x.Id == id).FirstOrDefault();
 
 			var userId = _userManager.GetUserId(User);
 			var userCart = _context.Carts.Where(x => x.UserId == userId).FirstOrDefault();
-			var productCart = await _context.productCarts.Where(x => x.CartId == userCart.Id).Include(y => y.Product).FirstOrDefaultAsync();
+			var productCart = await _context.productCarts.Where(x => x.CartId == userCart.Id).Where(y => y.ProductId == id).Include(y => y.Product).FirstOrDefaultAsync();
 			if (productCart == null)
 			{
 				productCart = new ProductCart
@@ -69,9 +81,12 @@ namespace Ecommerce.Controllers
 
 				await _context.SaveChangesAsync();
 
-			return RedirectToAction("Index", "Cart");
-		}
+			var hubContext = (IHubContext<ProductHub>)HttpContext.RequestServices.GetService(typeof(IHubContext<ProductHub>));
+			await hubContext.Clients.All.SendAsync("ReceiveStockUpdate", product.Id, product.StockQuantity);
 
+			return RedirectToAction("Index", "Home");
+		}
+		//TODO: add signalr
 		public async Task<IActionResult> RemoveFromCart(int id)
 		{
 			var product = _context.Products.Where(x => x.Id == id).FirstOrDefault();
@@ -100,7 +115,13 @@ namespace Ecommerce.Controllers
             if (productName != null)
             {
                 var searchResults = await _context.Products.Where(x => x.ProductName.Contains(productName)).ToListAsync();
-                ViewBag.Categories = await _context.Categories.ToListAsync();
+				foreach (var product in searchResults)
+				{
+					product.ProductImageBase64 = product.ProductImage != null
+						? Convert.ToBase64String(product.ProductImage)
+						: string.Empty;
+				}
+				ViewBag.Categories = await _context.Categories.ToListAsync();
                 return View("Index", searchResults);
             }
             return View("Index", productName);
@@ -109,6 +130,12 @@ namespace Ecommerce.Controllers
         public async Task<IActionResult> ProductByCategory(int id)
 		{
 			var products = await _context.ProductCategories.Where(pc => pc.CategoryId == id).Select(pc => pc.Product).ToListAsync();
+			foreach (var product in products)
+			{
+				product.ProductImageBase64 = product.ProductImage != null
+					? Convert.ToBase64String(product.ProductImage)
+					: string.Empty;
+			}
 			ViewBag.Categories = await _context.Categories.ToListAsync();
 			return View("Index", products);
 		}

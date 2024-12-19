@@ -26,12 +26,18 @@ namespace Ecommerce.Controllers
 			var cart= _context.Carts.Where(x=>x.UserId == userId).FirstOrDefault();
 			var ProductsInCartIds = _context.productCarts.Where(x=>x.CartId== cart.Id).ToList();
 			var productsInCart = new List<Product>();
+			decimal totalPrice = 0;
 
 			foreach (var item in ProductsInCartIds)
 			{
 				var product = _context.Products.FirstOrDefault(p => p.Id == item.ProductId);
-					productsInCart.Add(product);
+					product.ProductImageBase64 = product.ProductImage != null
+						? Convert.ToBase64String(product.ProductImage)
+						: string.Empty;
+				totalPrice += product.ProductPrice * item.ProductQuantityInCart;
+				productsInCart.Add(product);
 			}
+			ViewBag.TotalPrice = totalPrice;
 
 			return View(productsInCart);
 		}
