@@ -3,6 +3,7 @@ using Ecommerce.Data;
 using Ecommerce.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -55,6 +56,8 @@ app.UseEndpoints(endpoints =>
 	endpoints.MapControllers();
 	endpoints.MapHub<ProductHub>("/productHub");
 });
+
+StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>();
 
 
 app.MapControllerRoute(
