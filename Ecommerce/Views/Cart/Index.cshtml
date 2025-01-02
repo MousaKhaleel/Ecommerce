@@ -71,62 +71,68 @@
 </head>
 
 <section class="py-5">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="bootstrap-tabs product-tabs">
-                    <div class="tabs-header d-flex justify-content-between align-items-center border-bottom mb-4">
-                        <h3 class="mb-0 font-weight-bold">Trending Products</h3>
-                        <nav>
-                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                <a href="#" class="nav-link text-uppercase fs-6 active" id="nav-all-tab" data-bs-toggle="tab" data-bs-target="#nav-all">All</a>
-                            </div>
-                        </nav>
-                    </div>
+	<div class="container-fluid">
+		@if (Model != null && Model.Any())
+		{
+			<div class="row">
+				<div class="col-md-12">
+					<div class="bootstrap-tabs product-tabs">
+						<div class="tabs-header d-flex justify-content-between align-items-center border-bottom mb-4">
+							<h3 class="mb-0 font-weight-bold">Trending Products</h3>
+							<nav>
+								<div class="nav nav-tabs" id="nav-tab" role="tablist">
+									<a href="#" class="nav-link text-uppercase fs-6 active" id="nav-all-tab" data-bs-toggle="tab" data-bs-target="#nav-all">All</a>
+								</div>
+							</nav>
+						</div>
 
-                    <div class="tab-content" id="nav-tabContent">
-                        <div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
-                            <div class="product-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">
-                                @foreach (var product in Model)
-                                {
-                                    <div class="col">
-                                        <div class="card h-100 border-0 shadow">
-                                            <a asp-action="ProductDetails" asp-controller="Product" asp-route-d="@product.Id" class="text-decoration-none">
-                                                <div class="card-body text-center">
-                                                    <figure>
-														<img src="data:image/png;base64,@product.ProductImageBase64" class="img-fluid tab-image rounded mb-3" alt="@product.ProductName" class="img-fluid tab-image rounded mb-3" alt="@product.ProductName"/>
-                                                    </figure>
-                                                    <h3 class="h6 text-dark mb-2">@product.ProductName</h3>
-                                                    <p class="text-muted small mb-1">@product.StockQuantity left</p>
-                                                    <span class="price fw-bold text-success">@product.ProductPrice @product.Currency</span>
-                                                </div>
-                                            </a>
-                                            <div class="card-footer bg-transparent border-0 text-center">
-                                                <a asp-action="RemoveFromCart" asp-controller="Product" asp-route-id="@product.Id"
-                                                   class="btn btn-danger btn-sm w-100">
-                                                    Remove from Cart
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                            </div>
-                        </div>
-						<h4>Total Price: @ViewBag.TotalPrice</h4>
-						<a asp-action="CheckOut" asp-controller="Cart" id="checkout-button" class="btn btn-success btn-sm">CheckOut</a>
-@* 						<button >Proceed to Checkout</button> *@
+						<div class="tab-content" id="nav-tabContent">
+							<div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
+								<div class="product-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">
+									@foreach (var product in Model)
+									{
+										<div class="col">
+											<div class="card h-100 border-0 shadow">
+												<a asp-action="ProductDetails" asp-controller="Product" asp-route-id="@product.Id" class="text-decoration-none">
+													<div class="card-body text-center">
+														<figure>
+															<img src="data:image/png;base64,@product.ProductImageBase64" class="img-fluid tab-image rounded mb-3" alt="@product.ProductName ?? " No Image Available"" />
+														</figure>
+														<h3 class="h6 text-dark mb-2">@Html.Raw(product.ProductName ?? "No Name Available")</h3>
+														<p class="text-muted small mb-1">@product.StockQuantity left</p>
+														<span class="price fw-bold text-success">@product.ProductPrice @product.Currency</span>
+													</div>
+												</a>
+												<div class="card-footer bg-transparent border-0 text-center">
+													<a asp-action="RemoveFromCart" asp-controller="Product" asp-route-id="@product.Id" class="btn btn-danger btn-sm w-100">
+														Remove from Cart
+													</a>
+												</div>
+											</div>
+										</div>
+									}
+								</div>
+							</div>
+							<h4>Total Price: @ViewBag.TotalPrice</h4>
+							<form asp-action="CheckOut" asp-controller="Cart" method="post">
+								<button type="submit" class="btn btn-success btn-sm">CheckOut</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		}
+		else
+		{
+			<h4 class="text-center">No products available.</h4>
+		}
 
-						<script src="https://js.stripe.com/v3/"></script>
-						<script>
-							const stripe = Stripe('@ViewBag.PublishableKey');
-
-							document.getElementById('checkout-button').addEventListener('click', () => {
-								stripe.redirectToCheckout({ sessionId: '@ViewBag.SessionId' });
-							});
-						</script>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+		<script src="https://js.stripe.com/v3/"></script>
+		<script>
+			const stripe = Stripe('@ViewBag.PublishableKey');
+			document.getElementById('checkout-button').addEventListener('click', () => {
+				stripe.redirectToCheckout({ sessionId: '@ViewBag.SessionId' });
+			});
+		</script>
+	</div>
 </section>

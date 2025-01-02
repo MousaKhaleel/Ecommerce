@@ -45,7 +45,7 @@ namespace Ecommerce.Controllers
 
 			return View(productsInCart);
 		}
-
+		// TODO: Fix stripe integration
 		[HttpPost]
 		public async Task<IActionResult> CheckOut()
 		{
@@ -92,7 +92,6 @@ namespace Ecommerce.Controllers
 			return Redirect(session.Url);
 		}
 
-		[HttpGet]
 		public async Task<IActionResult> ConfirmOrder()
 		{
 			var userId = _userManager.GetUserId(User);
@@ -116,7 +115,6 @@ namespace Ecommerce.Controllers
 			return View("Success");
 		}
 
-		[HttpGet]
 		public IActionResult CancelOrder()
 		{
 			return RedirectToAction("Cart", "Shop");

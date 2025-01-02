@@ -140,13 +140,6 @@ namespace Ecommerce.Controllers
 			return View("Index", products);
 		}
 
-		//[HttpPost]
-		//public async Task<IActionResult> BuyProduct(int id)
-		//{
-
-		//    RedirectToAction("Index", "Cart");
-		//}XXXXXXXXXXXXXXXX
-
 
 	}
 }
